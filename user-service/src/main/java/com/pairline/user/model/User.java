@@ -16,7 +16,7 @@ import jakarta.persistence.Version;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id; // long can be null but Long can't
+	private Long id; // Long can be null --- plain long holds 0 by default so it'll look like real id in DB
 
 	@Column(nullable = false, unique = true, length = 255)
 	private String email;
