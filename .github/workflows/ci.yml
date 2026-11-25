@@ -12,12 +12,12 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
           MYSQL_DATABASE: pairline_users
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -p${{ secrets.DB_PASSWORD }}"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=10
@@ -36,5 +36,5 @@ jobs:
           cache-dependency-path: user-service/pom.xml
       - name: Build and test
         env:
-          DB_PASSWORD: root
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: mvn -B verify
