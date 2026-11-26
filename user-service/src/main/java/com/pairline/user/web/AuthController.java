@@ -23,8 +23,14 @@ public class AuthController {
 
 	// @Valid runs the rules from RegisterRequest before this method starts
 	@PostMapping("/register")
-	@ResponseStatus(HttpStatus.CREATED)					//201 created
+	@ResponseStatus(HttpStatus.CREATED) // 201 created
 	public UserResponse register(@Valid @RequestBody RegisterRequest request) {
 		return userService.register(request);
+	}
+
+	@PostMapping("/login")
+	@ResponseStatus(HttpStatus.OK)
+	public LoginResponse login(@Valid @RequestBody LoginRequest request) {
+		return userService.login(request);
 	}
 }

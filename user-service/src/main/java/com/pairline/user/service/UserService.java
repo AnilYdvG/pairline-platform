@@ -41,10 +41,13 @@ public class UserService {
 	public LoginResponse login(LoginRequest request) {
 		Optional<User> found = userRepository.findByEmail(request.email());
 
-		if (found.isEmpty() || !passwordEncoder.matches(request.password(), found.get().getPasswordHash())) {
+		
+		//same error for "no such email" and "wrong password"
+		if (found.isEmpty() 
+				|| !passwordEncoder.matches(request.password(), found.get().getPasswordHash())) {
 			throw new InvalidCredentialsException();
 		}
-
+		// accessToken stays empty until PAIR-6 adds JWT
 		return new LoginResponse("", "Bearer", 0L);
 	}
 }
